@@ -12,6 +12,8 @@ extern crate serde;
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
+extern crate r2d2;
+extern crate r2d2_diesel;
 
 mod schema;
 
@@ -38,10 +40,4 @@ fn main() {
         println!("check_at: {}", attendance.check_at);
         println!("attendance_type: {}", attendance.attendance_type);
     }*/
-}
-
-fn establish_connection() -> SqliteConnection {
-    dotenv().ok();
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    SqliteConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
 }

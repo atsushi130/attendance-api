@@ -6,6 +6,7 @@
 use rocket_contrib::Json;
 use rocket::request::FromRequest;
 use super::AttendanceResource;
+use data::{ AttendanceRepository, AttendanceEntity };
 use database::DatabaseConnection;
 
 #[post("/attendances", format="application/json", data="<resource>")]
@@ -16,10 +17,15 @@ pub fn post_attendance(connection: DatabaseConnection, resource: Json<Attendance
 #[get("/attendances")]
 pub fn get_attendances(connection: DatabaseConnection) -> Json<Vec<AttendanceResource>> {
 
-    let numbers: Vec<i32> = vec![1, 2, 3, 4, 5];
-    let attendances = numbers.iter().map(|number| {
-        AttendanceResource::new("atsushi", "2018/02/24 12:00:00", 0)
-    }).collect();
+    // let numbers: Vec<i32> = vec![1, 2, 3, 4, 5];
+    // let attendances = numbers.iter().map(|number| {
+    //     AttendanceResource::new("atsushi", "2018/02/24 12:00:00", 0)
+    // }).collect();
+
+    let repository = AttendanceRepository::new(connection);
+    let attendances = repository.getAttendances().into_iter().map(|entity|
+        AttendanceResource::new(&entity.user, &entity.check_at, entity.attendance_type)
+    ).collect();
 
     Json(attendances)
 }

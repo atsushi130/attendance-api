@@ -23,18 +23,5 @@ mod presentation;
 mod database;
 
 fn main() {
-
     presentation::routes();
-
-    /*
-    let connection = establish_connection();
-    let repository = AttendanceRepository::from(connection);
-    let results = repository.getAttendances();
-
-    for attendance in results {
-        println!("id: {}", attendance.id);
-        println!("user: {}", attendance.user);
-        println!("check_at: {}", attendance.check_at);
-        println!("attendance_type: {}", attendance.attendance_type);
-    }*/
 }

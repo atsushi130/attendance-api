@@ -2,10 +2,8 @@
 
 ## Setup
 ```
-❯ cd migrations/create_attendance
 ❯ diesel migration run
-❯ cp ./attendance.db ../../attendance.db
-❯ cargo run
+❯ cargo run --release
 ```
 
 ## Rust version

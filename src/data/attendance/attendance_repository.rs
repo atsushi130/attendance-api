@@ -1,15 +1,16 @@
 
 use super::AttendanceEntity;
-use diesel::SqliteConnection;
+use database::DatabaseConnection;
 use schema::attendances::dsl::*;
 use diesel::prelude::*;
+use diesel::associations::HasTable;
 
 pub struct AttendanceRepository {
-    connection: SqliteConnection
+    connection: DatabaseConnection
 }
 
 impl AttendanceRepository {
-    pub fn new(connection: SqliteConnection) -> Self {
+    pub fn new(connection: DatabaseConnection) -> Self {
         AttendanceRepository {
             connection
         }
@@ -19,7 +20,7 @@ impl AttendanceRepository {
 impl AttendanceRepository {
 
     pub fn getAttendances(&self) -> Vec<AttendanceEntity> {
-        attendances.load::<AttendanceEntity>(&self.connection).expect("Error loading attendances")
+        attendances.load::<AttendanceEntity>(&*self.connection).expect("Error loading attendances")
     }
 
     pub fn register(&self, entity: &AttendanceEntity) {

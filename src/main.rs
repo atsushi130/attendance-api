@@ -9,9 +9,6 @@ extern crate rocket_contrib;
 extern crate serde_derive;
 extern crate serde;
 
-
-
-
 #[macro_use]
 extern crate diesel;
 extern crate dotenv;
@@ -24,14 +21,15 @@ use diesel::SqliteConnection;
 use dotenv::dotenv;
 use std::env;
 
+mod data;
+use data::{ AttendanceRepository, AttendanceEntity };
+
 fn main() {
 
     let connection = establish_connection();
-    let results = attendances
-        .load::<AttendanceEntity>(&connection)
-        .expect("Error loading attendances");
+    let repository = AttendanceRepository::from(connection);
+    let results = repository.getAttendances();
 
-    println!("Displaying {} attendances", results.len());
     for attendance in results {
         println!("id: {}", attendance.id);
         println!("user: {}", attendance.user);
@@ -42,17 +40,6 @@ fn main() {
 
 fn establish_connection() -> SqliteConnection {
     dotenv().ok();
-
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    SqliteConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
-}
-
-#[derive(Queryable)]
-pub struct AttendanceEntity {
-    pub id: i32,
-    pub user: String,
-    pub check_at: String,
-    pub attendance_type: i32
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    SqliteConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
 }

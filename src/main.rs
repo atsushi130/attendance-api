@@ -17,7 +17,7 @@ extern crate diesel;
 extern crate dotenv;
 
 mod schema;
-use schema::attendance::dsl::*;
+use schema::attendances::dsl::*;
 
 use diesel::prelude::*;
 use diesel::SqliteConnection;
@@ -27,16 +27,16 @@ use std::env;
 fn main() {
 
     let connection = establish_connection();
-    let results = attendance
-        .load::<Attendance>(&connection)
-        .expect("Error loading attendance");
+    let results = attendances
+        .load::<AttendanceEntity>(&connection)
+        .expect("Error loading attendances");
 
-    println!("Displaying {} posts", results.len());
-    for post in results {
-        println!("id: {}", post.id);
-        println!("user: {}", post.user);
-        println!("check_at: {}", post.check_at);
-        println!("attendance_type: {}", post.attendance_type);
+    println!("Displaying {} attendances", results.len());
+    for attendance in results {
+        println!("id: {}", attendance.id);
+        println!("user: {}", attendance.user);
+        println!("check_at: {}", attendance.check_at);
+        println!("attendance_type: {}", attendance.attendance_type);
     }
 }
 
@@ -50,7 +50,7 @@ fn establish_connection() -> SqliteConnection {
 }
 
 #[derive(Queryable)]
-pub struct Attendance {
+pub struct AttendanceEntity {
     pub id: i32,
     pub user: String,
     pub check_at: String,

@@ -25,12 +25,11 @@ use dotenv::dotenv;
 use std::env;
 
 fn main() {
-    println!("Hello, world!");
 
     let connection = establish_connection();
     let results = attendance
         .load::<Attendance>(&connection)
-        .expect("Error loading posts");
+        .expect("Error loading attendance");
 
     println!("Displaying {} posts", results.len());
     for post in results {

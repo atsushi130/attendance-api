@@ -1,6 +1,6 @@
 
 table! {
-    attendances (id) {
+    attendances {
         id -> Integer,
         user -> Text,
         check_at -> Date,

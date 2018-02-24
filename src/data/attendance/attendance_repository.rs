@@ -9,7 +9,7 @@ pub struct AttendanceRepository {
 }
 
 impl AttendanceRepository {
-    pub fn from(connection: SqliteConnection) -> Self {
+    pub fn new(connection: SqliteConnection) -> Self {
         AttendanceRepository {
             connection
         }

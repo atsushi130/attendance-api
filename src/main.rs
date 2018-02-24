@@ -14,7 +14,6 @@ extern crate diesel;
 extern crate dotenv;
 
 mod schema;
-use schema::attendances::dsl::*;
 
 use diesel::prelude::*;
 use diesel::SqliteConnection;
@@ -22,10 +21,13 @@ use dotenv::dotenv;
 use std::env;
 
 mod data;
-use data::{ AttendanceRepository, AttendanceEntity };
+mod presentation;
 
 fn main() {
 
+    presentation::routes();
+
+    /*
     let connection = establish_connection();
     let repository = AttendanceRepository::from(connection);
     let results = repository.getAttendances();
@@ -35,7 +37,7 @@ fn main() {
         println!("user: {}", attendance.user);
         println!("check_at: {}", attendance.check_at);
         println!("attendance_type: {}", attendance.attendance_type);
-    }
+    }*/
 }
 
 fn establish_connection() -> SqliteConnection {

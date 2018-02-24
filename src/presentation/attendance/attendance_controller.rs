@@ -4,9 +4,8 @@
 #![plugin(rocket_codegen)]
 
 use rocket_contrib::Json;
-use rocket::request::FromRequest;
 use super::AttendanceResource;
-use data::{ AttendanceRepository, AttendanceEntity };
+use data::AttendanceRepository;
 use database::DatabaseConnection;
 
 #[post("/attendances", format="application/json", data="<resource>")]

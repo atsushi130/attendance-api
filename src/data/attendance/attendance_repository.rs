@@ -23,6 +23,10 @@ impl AttendanceRepository {
         attendances.load::<AttendanceEntity>(&*self.connection).expect("Error loading attendances")
     }
 
+    pub fn getAttendancesByUser(&self, user_name: &str) -> Vec<AttendanceEntity> {
+        attendances.filter(user.eq(user_name)).load::<AttendanceEntity>(&*self.connection).expect("Error")
+    }
+
     pub fn register(&self, entity: &AttendanceEntity) {
     }
 }

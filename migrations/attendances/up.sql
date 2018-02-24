@@ -1,12 +1,7 @@
 -- Your SQL goes here
-CREATE TABLE attendance (
+CREATE TABLE attendances (
   id INTEGER NOT NULL PRIMARY KEY,
   user VARCHAR NOT NULL,
   check_at DATE NOT NULL,
   attendance_type INTEGER NOT NULL
-)
-
-CREATE TABLE attendanceType (
-  type INTEGER NOT NULL PRIMARY KEY,
-  name VARCHAR NOT NULL
 )

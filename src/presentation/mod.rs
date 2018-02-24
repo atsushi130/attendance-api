@@ -15,12 +15,17 @@ use rocket;
 mod attendance;
 use self::attendance::attendance_controller;
 
+use database::{ init_pool, DatabaseConnection, DatabasePool };
+
 pub fn routes() {
+
+    // dotenv().ok();
+    // let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    // let manager = ConnectionManager::<SqliteConnection>::new(database_url);
+    // let connection = r2d2::Pool::builder().build(manager).unwrap();
 
     dotenv().ok();
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let manager = ConnectionManager::<SqliteConnection>::new(database_url);
-    let connection = r2d2::Pool::builder().build(manager).unwrap();
 
     rocket::ignite().mount(
         "/",
@@ -30,6 +35,6 @@ pub fn routes() {
             attendance_controller::post_attendance
         ]
     )
-    .manage(connection)
+    .manage(init_pool(&database_url))
     .launch();
 }

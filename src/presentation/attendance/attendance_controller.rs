@@ -18,7 +18,7 @@ pub fn post_attendance(connection: DatabaseConnection, resource: Json<Attendance
 pub fn get_attendances(connection: DatabaseConnection) -> Json<Vec<AttendanceResource>> {
 
     let repository = AttendanceRepository::new(connection);
-    let attendances = repository.getAttendances().into_iter().map(|entity|
+    let attendances = repository.get_attendances().into_iter().map(|entity|
         AttendanceResource::new(&entity.user, &entity.check_at, entity.attendance_type)
     ).collect();
 
@@ -29,7 +29,7 @@ pub fn get_attendances(connection: DatabaseConnection) -> Json<Vec<AttendanceRes
 pub fn get_attendances_filterd_user(connection: DatabaseConnection, user: String) -> Json<Vec<AttendanceResource>> {
 
     let repository = AttendanceRepository::new(connection);
-    let attendances = repository.getAttendancesByUser(&user).into_iter().map(|entity|
+    let attendances = repository.get_attendances_by_user(&user).into_iter().map(|entity|
         AttendanceResource::new(&entity.user, &entity.check_at, entity.attendance_type)
     ).collect();
 

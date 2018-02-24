@@ -25,10 +25,21 @@ pub fn get_attendances(connection: DatabaseConnection) -> Json<Vec<AttendanceRes
 }
 
 #[get("/attendances/<user>")]
-pub fn get_attendances_filterd_user(connection: DatabaseConnection, user: String) -> Json<Vec<AttendanceResource>> {
+pub fn get_attendances_by_user(connection: DatabaseConnection, user: String) -> Json<Vec<AttendanceResource>> {
 
     let repository = AttendanceRepository::new(connection);
     let attendances = repository.get_attendances_by_user(&user).into_iter().map(|entity|
+        AttendanceResource::new(&entity.user, &entity.check_at, entity.attendance_type)
+    ).collect();
+
+    Json(attendances)
+}
+
+#[get("/attendances/<user>/<month>")]
+pub fn get_attendances_by_month(connection: DatabaseConnection, user: String, month: u32) -> Json<Vec<AttendanceResource>> {
+
+    let repository = AttendanceRepository::new(connection);
+    let attendances = repository.get_attendances_by_month(&user, month).into_iter().map(|entity|
         AttendanceResource::new(&entity.user, &entity.check_at, entity.attendance_type)
     ).collect();
 

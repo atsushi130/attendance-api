@@ -22,7 +22,8 @@ pub fn routes() {
         "/",
         routes![
             attendance_controller::get_attendances,
-            attendance_controller::get_attendances_filterd_user,
+            attendance_controller::get_attendances_by_user,
+            attendance_controller::get_attendances_by_month,
             attendance_controller::post_attendance
         ]
     )

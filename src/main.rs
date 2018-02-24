@@ -17,10 +17,10 @@ extern crate r2d2_diesel;
 extern crate chrono;
 
 mod schema;
-
 mod data;
 mod presentation;
 mod database;
+mod extension;
 
 fn main() {
     presentation::routes();

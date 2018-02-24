@@ -14,13 +14,9 @@ extern crate diesel;
 extern crate dotenv;
 extern crate r2d2;
 extern crate r2d2_diesel;
+extern crate chrono;
 
 mod schema;
-
-use diesel::prelude::*;
-use diesel::SqliteConnection;
-use dotenv::dotenv;
-use std::env;
 
 mod data;
 mod presentation;

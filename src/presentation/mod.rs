@@ -15,7 +15,7 @@ use rocket;
 mod attendance;
 use self::attendance::attendance_controller;
 
-use database::{ init_pool, DatabaseConnection, DatabasePool };
+use database::init_pool;
 
 pub fn routes() {
 

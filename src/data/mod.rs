@@ -1,3 +1,3 @@
 
 mod attendance;
-pub use self::attendance::{ AttendanceRepository, AttendanceEntity };
+pub use self::attendance::{ AttendanceRepository, AttendanceEntity, AttendanceInsertableEntity };

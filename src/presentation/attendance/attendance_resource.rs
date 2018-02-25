@@ -2,9 +2,9 @@
 //#[derive(Serialize, Deserialize)]
 #[derive(Serialize, Deserialize)]
 pub struct AttendanceResource {
-    user: String,
-    check_at: String,
-    attendance_type: i32
+    pub user: String,
+    pub check_at: String,
+    pub attendance_type: i32
 }
 
 impl AttendanceResource {

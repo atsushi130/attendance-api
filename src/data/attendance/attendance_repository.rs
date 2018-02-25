@@ -1,11 +1,12 @@
 
-use super::AttendanceEntity;
+use super::{ AttendanceEntity, AttendanceInsertableEntity };
 use database::DatabaseConnection;
 use extension::ToTwoDigits;
 use chrono::{ Local, Datelike, DateTime, Duration, Weekday, TimeZone };
 use chrono::naive::{ NaiveDate, NaiveDateTime };
 use schema::attendances::dsl::*;
 use diesel::prelude::*;
+use diesel;
 
 pub struct AttendanceRepository {
     connection: DatabaseConnection
@@ -41,6 +42,7 @@ impl AttendanceRepository {
             .load::<AttendanceEntity>(&*self.connection).expect("Error")
     }
 
-    pub fn register(&self, entity: &AttendanceEntity) {
+    pub fn register(&self, entity: &AttendanceInsertableEntity) {
+        diesel::insert_into(attendances).values(entity).execute(&*self.connection).expect("Error");
     }
 }

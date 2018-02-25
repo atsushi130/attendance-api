@@ -20,6 +20,7 @@ extern crate chrono;
 
 mod schema;
 mod data;
+mod domain;
 mod presentation;
 mod database;
 mod extension;

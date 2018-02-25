@@ -2,8 +2,7 @@
 use super::{ AttendanceEntity, AttendanceInsertableEntity };
 use database::DatabaseConnection;
 use extension::ToTwoDigits;
-use chrono::{ Local, Datelike, DateTime, Duration, Weekday, TimeZone };
-use chrono::naive::{ NaiveDate, NaiveDateTime };
+use chrono::{ Local, Datelike, Duration, TimeZone };
 use schema::attendances::dsl::*;
 use diesel::prelude::*;
 use diesel;

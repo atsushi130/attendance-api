@@ -24,6 +24,8 @@ pub fn routes() {
             attendance_controller::get_attendances,
             attendance_controller::get_attendances_by_user,
             attendance_controller::get_attendances_by_month,
+            attendance_controller::get_working_time_by_month,
+            attendance_controller::get_working_overtime_by_month,
             attendance_controller::post_attendance
         ]
     )

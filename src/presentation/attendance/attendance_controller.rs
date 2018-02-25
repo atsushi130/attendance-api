@@ -3,14 +3,21 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 
-use rocket_contrib::Json;
+use rocket_contrib::{ Json, Value };
 use super::AttendanceResource;
-use data::AttendanceRepository;
+use data::{ AttendanceRepository, AttendanceInsertableEntity };
 use database::DatabaseConnection;
 
 #[post("/attendances", format="application/json", data="<resource>")]
-pub fn post_attendance(connection: DatabaseConnection, resource: Json<AttendanceResource>) -> Json<AttendanceResource> {
-    resource
+pub fn post_attendance(connection: DatabaseConnection, resource: Json<AttendanceResource>) -> Json<Value> {
+
+    let attendance = resource.0;
+    let entity = AttendanceInsertableEntity::new(&attendance.user, &attendance.check_at, attendance.attendance_type);
+
+    let repository = AttendanceRepository::new(connection);
+    repository.register(&entity);
+
+    Json(json!({"status": "ok"}))
 }
 
 #[get("/attendances")]

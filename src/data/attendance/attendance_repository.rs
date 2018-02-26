@@ -7,6 +7,7 @@ use schema::attendances::dsl::*;
 use diesel::prelude::*;
 use diesel;
 
+// TODO: Singleton
 pub struct AttendanceRepository {
     connection: DatabaseConnection
 }

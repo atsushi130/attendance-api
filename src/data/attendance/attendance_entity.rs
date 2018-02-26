@@ -1,4 +1,5 @@
 
+use domain::AttendanceModel;
 use schema::attendances;
 
 #[derive(Queryable)]
@@ -18,11 +19,11 @@ pub struct AttendanceInsertableEntity {
 }
 
 impl AttendanceInsertableEntity {
-    pub fn new(user: &str, check_at: &str, attendance_type: i32) -> Self {
+    pub fn new(model: &AttendanceModel) -> Self {
         AttendanceInsertableEntity {
-            user: user.to_string(),
-            check_at: check_at.to_string(),
-            attendance_type
+            user: model.user.clone(),
+            check_at: model.check_at.clone(),
+            attendance_type: model.attendance_type
         }
     }
 }

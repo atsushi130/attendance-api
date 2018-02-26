@@ -28,7 +28,7 @@ impl AttendanceService {
     }
 
     pub fn get_working_time(&self, user: &str, month: u32, connection: DatabaseConnection) -> i32 {
-        let attendances = self.get_attendances_by_month(user, month, connection);
+        let _ = self.get_attendances_by_month(user, month, connection);
         1
     }
 

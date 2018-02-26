@@ -1,8 +1,8 @@
 
 pub struct AttendanceModel {
-    user: String,
-    check_at: String,
-    attendance_type: i32
+    pub user: String,
+    pub check_at: String,
+    pub attendance_type: i32
 }
 
 impl AttendanceModel {

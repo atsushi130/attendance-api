@@ -1,3 +1,3 @@
 
 mod attendance;
-pub use self::attendance::AttendanceService;
+pub use self::attendance::{ AttendanceService, AttendanceModel };

@@ -1,6 +1,6 @@
 
 use database::DatabaseConnection;
-use data::AttendanceRepository;
+use data::{ AttendanceRepository, AttendanceInsertableEntity };
 use super::AttendanceModel;
 
 pub struct AttendanceService;
@@ -8,6 +8,11 @@ pub struct AttendanceService;
 type AttendanceModels = Vec<AttendanceModel>;
 
 impl AttendanceService {
+
+    pub fn register(&self, attendance: &AttendanceModel, connection: DatabaseConnection) {
+        let entity = AttendanceInsertableEntity::new(attendance);
+        AttendanceRepository::new(connection).register(&entity);
+    }
 
     pub fn get_attendances(&self, connection: DatabaseConnection) -> AttendanceModels {
         AttendanceRepository::new(connection).get_attendances().into_iter().map(|entity|

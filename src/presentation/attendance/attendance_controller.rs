@@ -5,7 +5,6 @@
 
 use rocket_contrib::{ Json, Value };
 use super::AttendanceResource;
-use data::{ AttendanceRepository, AttendanceInsertableEntity };
 use domain::AttendanceService;
 use database::DatabaseConnection;
 
@@ -13,13 +12,8 @@ type AttendanceResources = Vec<AttendanceResource>;
 
 #[post("/attendances", format="application/json", data="<resource>")]
 pub fn post_attendance(connection: DatabaseConnection, resource: Json<AttendanceResource>) -> Json<Value> {
-
-    let attendance = resource.0;
-    let entity = AttendanceInsertableEntity::new(&attendance.user, &attendance.check_at, attendance.attendance_type);
-
-    let repository = AttendanceRepository::new(connection);
-    repository.register(&entity);
-
+    let attendance = resource.0.to_model();
+    AttendanceService.register(&attendance, connection);
     Json(json!({"status": "ok"}))
 }
 

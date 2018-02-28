@@ -1,6 +1,8 @@
 
 use database::DatabaseConnection;
 use data::{ AttendanceRepository, AttendanceInsertableEntity };
+use reduce::Reduce;
+use rayon::prelude::*;
 use super::AttendanceModel;
 
 pub struct AttendanceService;
@@ -33,8 +35,16 @@ impl AttendanceService {
     }
 
     pub fn get_working_time(&self, user: &str, month: u32, connection: DatabaseConnection) -> i32 {
-        let _ = self.get_attendances_by_month(user, month, connection);
-        1
+
+        let sum = self.get_attendances_by_month(user, month, connection).into_iter().fold(0, |sum, attendance| {
+            if attendance.attendance_type == 0 {
+                sum - 10
+            } else {
+                sum + 19
+            }
+        });
+
+        sum
     }
 
     pub fn get_working_overtime(&self, user: &str, month: u32, connection: DatabaseConnection) -> i32 {

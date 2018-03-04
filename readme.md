@@ -1,5 +1,3 @@
-# attendance-api
-
 <p align="center">
     <h1 align="center">attendance-api</h1>
 </p1>
